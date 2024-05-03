@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -25,8 +26,12 @@ public abstract class BasePage {
     }
 
     public void clickWithJSScroll(WebElement element, int x, int y) {
-        js.executeScript("window.scrollBy(" + x + "," + y + ")");
+        jsScroll(element, x, y);
         clickBase(element);
+    }
+
+    protected void jsScroll(WebElement element, int x, int y) {
+        js.executeScript("window.scrollBy(" + x + "," + y + ")");
     }
 
     public void typeText(WebElement element, String text) {
@@ -46,4 +51,26 @@ public abstract class BasePage {
             throw new RuntimeException(e);
         }
     }
+
+    protected boolean isStringsEqual(String actualRes, String expectedRes) {
+        if(actualRes.equals(expectedRes)) {
+            return true;
+        } else {
+            System.out.println("actual res: " + actualRes +
+                    " expected res " + expectedRes);
+            return false;
+        }
+    }
+
+    protected Keys getKeyForOSCommandOrControl() {
+        String os = System.getProperty("os.name");
+        System.out.println("my os: " + os);
+        if(os.startsWith("Mac")) {
+            return Keys.COMMAND;
+        } else if(os.startsWith("Win")) {
+            return Keys.CONTROL;
+        }
+        return Keys.CONTROL;
+    }
+
 }

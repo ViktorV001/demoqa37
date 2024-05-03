@@ -9,7 +9,7 @@ import pages.AlertsPage;
 import pages.HomePage;
 import pages.LeftSideMenu;
 
-public class AlertsTests extends tests.BaseTest {
+public class AlertsTests extends BaseTest{
 
     @BeforeClass
     public void classPreconditions() {
